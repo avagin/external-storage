@@ -30,7 +30,6 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/pkg/api/resource"
 	"k8s.io/client-go/pkg/api/v1"
-	"k8s.io/client-go/pkg/types"
 	"k8s.io/client-go/pkg/util/uuid"
 	"k8s.io/client-go/pkg/util/wait"
 	"k8s.io/client-go/rest"
@@ -59,13 +58,13 @@ type vzFSProvisioner struct {
 	client kubernetes.Interface
 	// Identity of this vzFSProvisioner, generated. Used to identify "this"
 	// provisioner's PVs.
-	identity types.UID
+	identity string
 }
 
 func newVzFSProvisioner(client kubernetes.Interface) controller.Provisioner {
 	return &vzFSProvisioner{
 		client:   client,
-		identity: uuid.NewUUID(),
+		identity: *identity,
 	}
 }
 
@@ -230,7 +229,7 @@ func (p *vzFSProvisioner) Provision(options controller.VolumeOptions) (*v1.Persi
 		ObjectMeta: v1.ObjectMeta{
 			Name: options.PVName,
 			Annotations: map[string]string{
-				provisionerIDAnn: string(p.identity),
+				provisionerIDAnn: p.identity,
 				vzShareAnn:       share,
 			},
 		},
@@ -262,7 +261,7 @@ func (p *vzFSProvisioner) Delete(volume *v1.PersistentVolume) error {
 	if !ok {
 		return errors.New("identity annotation not found on PV")
 	}
-	if ann != string(p.identity) {
+	if ann != p.identity {
 		return &controller.IgnoredError{"identity annotation on PV does not match ours"}
 	}
 	share, ok := volume.Annotations[vzShareAnn]
@@ -301,6 +300,7 @@ func (p *vzFSProvisioner) Delete(volume *v1.PersistentVolume) error {
 var (
 	master     = flag.String("master", "", "Master URL")
 	kubeconfig = flag.String("kubeconfig", "", "Absolute path to the kubeconfig")
+	identity   = flag.String("identity", "vzstorage-pr-default", "Uniq identity for this instance")
 )
 
 func main() {
