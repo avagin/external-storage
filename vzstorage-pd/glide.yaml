@@ -1,7 +1,5 @@
 package: github.com/kubernetes-incubator/external-storage/vzstorage-pd
 import:
-- package: git.sw.ru/ap/ap-api-snapshots
-  repo: https://avagin@git.sw.ru/scm/vzap/ap-api-snapshots.git
 - package: github.com/virtuozzo/ploop-flexvol
   subpackages:
   - vstorage
