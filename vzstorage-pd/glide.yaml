@@ -1,7 +1,0 @@
-package: github.com/kubernetes-incubator/external-storage/vzstorage-pd
-import:
-- package: github.com/virtuozzo/ploop-flexvol
-  subpackages:
-  - vstorage
-- package: github.com/dustin/go-humanize
-- package: github.com/kolyshkin/goploop-cli
