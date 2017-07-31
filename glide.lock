@@ -1,6 +1,9 @@
-hash: 8c2471c037d5f538d5a6a8135ddeb057c80f80f3995cd0652711409c10f8316c
-updated: 2017-07-31T23:47:37.553556599+03:00
+hash: aab68b35145ab6655229e47b0af1df56d989903dce12e09cde4b499837c760cd
+updated: 2017-08-01T00:00:53.353127411+03:00
 imports:
+- name: git.sw.ru/ap/ap-api-snapshots
+  version: 081ee7b8712b7425ffc55136dd24556fb8fe894a
+  repo: https://avagin@git.sw.ru/scm/vzap/ap-api-snapshots.git
 - name: github.com/aws/aws-sdk-go
   version: 5e436e55ac5eddc739f26a2a209b3f4248ee8e0e
   subpackages:

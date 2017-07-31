@@ -62,3 +62,5 @@ import:
 - package: github.com/dustin/go-humanize
 - package: github.com/kolyshkin/goploop-cli
 - package: github.com/google/gofuzz
+- package: git.sw.ru/ap/ap-api-snapshots
+  repo: https://avagin@git.sw.ru/scm/vzap/ap-api-snapshots.git
